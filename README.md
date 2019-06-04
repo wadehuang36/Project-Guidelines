@@ -1,2 +1,2 @@
-# SWARM-Project-Templates
-Our templates for different language projects
+# SWARM-Project-Guidelines
+We create our Guidelines for react different language in order for every team member to create understand the project easier
