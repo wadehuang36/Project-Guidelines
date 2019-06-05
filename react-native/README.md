@@ -42,4 +42,7 @@ wget https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/
 
 ## Code Styles
 
+## Resource Styles
+
+
 ## Libraries
