@@ -12,7 +12,7 @@ mv __tests__ app
 mv App.tsx app/src ## need to change the path of import App on index.js
 
 # download the files for editors like VS code
-wget https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/ReactNative/.editorconfig
+wget https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/.editorconfig
 ```
 
 ## File Structure
@@ -43,6 +43,5 @@ wget https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/
 ## Code Styles
 
 ## Resource Styles
-
 
 ## Libraries
