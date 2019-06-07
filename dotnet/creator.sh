@@ -29,23 +29,23 @@ wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/mast
 
 # setup the project
 cd $ProjectRoot/$ProjectName
-dotnet add package Microsoft.CodeAnalysis.FxCopAnalyzers
-dotnet add package StyleCop.Analyzers
+dotnet add package --no-restore Microsoft.CodeAnalysis.FxCopAnalyzers
+dotnet add package --no-restore StyleCop.Analyzers
 mkdir src
 mv *.cs src
 
 # setup the test project
 cd $ProjectRoot/$ProjectName.Tests 
 dotnet add reference ../$ProjectName/
-dotnet add package Microsoft.CodeAnalysis.FxCopAnalyzers
-dotnet add package StyleCop.Analyzers
+dotnet add package --no-restore Microsoft.CodeAnalysis.FxCopAnalyzers
+dotnet add package --no-restore StyleCop.Analyzers
 mkdir src
 mv *.cs src
 
 cd $ProjectRoot
 
 # add analyzers config
-AnalysisRule="\t<PropertyGroup>\n\t\t<TreatWarningsAsErrors>true</TreatWarningsAsErrors>\n\t\t<CodeAnalysisRuleSet Condition=\"'$(Configuration)' == 'Release'\">../project.ruleset</CodeAnalysisRuleSet>\n\t</PropertyGroup>\n"
+AnalysisRule="\t<PropertyGroup>\n\t\t<TreatWarningsAsErrors>true</TreatWarningsAsErrors>\n\t\t<CodeAnalysisRuleSet>../project.ruleset</CodeAnalysisRuleSet>\n\t</PropertyGroup>\n"
 AnalysisRule=$(echo $AnalysisRule | sed 's/\//\\\//g')
 sed -i "/<\/Project>/ s/.*/${AnalysisRule}\n&/" $ProjectName/$ProjectName.csproj
 sed -i "/<\/Project>/ s/.*/${AnalysisRule}\n&/" $ProjectName.Tests/$ProjectName.Tests.csproj
