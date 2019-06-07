@@ -1,16 +1,13 @@
 # .Net Guideline
 
-## Install DotNet Core SDK
-https://dotnet.microsoft.com/download/dotnet-core
-
-## Install useful dotnet tools
-``` bash
-dotnet tool install -g dotnet-format
-dotnet tool install -g dotnet-scripts
-```
+## Development Requirements:
+- [dotnet core sdk](https://dotnet.microsoft.com/download/dotnet-core)
+- [dotnet format](https://github.com/dotnet/format)
+- [dotnet script](https://github.com/filipw/dotnet-script) (Optional)
 
 ## Initialize a new project
-use creator.sh
+we create a creator.sh to help creating and setting a new dotnet project. 
+Use this command to initialize a new project.
 ``` bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/dotnet/creator.sh)"
 ```

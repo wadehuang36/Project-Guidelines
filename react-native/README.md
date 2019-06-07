@@ -1,6 +1,15 @@
 # SWARM React Native Guidelines
 
-## Initial the project
+## Development Requirements:
+- [nodejs](https://nodejs.org/en/download/current/)
+
+## Initialize a new project
+we create a creator.sh to help creating and setting a new react-native project. 
+Use this command to initialize a new project.
+``` bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/creator.sh)"
+```
+
 ``` bash
 # use react native CLI to create a new project with typescript
 npx react-native init <ProjectName> --template typescript
