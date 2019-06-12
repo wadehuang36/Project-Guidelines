@@ -10,20 +10,6 @@ Use this command to initialize a new project.
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/creator.sh)"
 ```
 
-``` bash
-# use react native CLI to create a new project with typescript
-npx react-native init <ProjectName> --template typescript
-cd <ProjectName>
-
-# create folders and move default files
-mkdir app app/src app/src/scenes app/src/services app/src/models app/src/utils app/res/ app/res/images app/res/fonts
-mv __tests__ app
-mv App.tsx app/src ## need to change the path of import App on index.js
-
-# download the files for editors like VS code
-wget https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/.editorconfig
-```
-
 ## File Structure
 - android: the folder for native android
 - ios: the folder for native ios 
@@ -53,4 +39,10 @@ wget https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/
 
 ## Resource Styles
 
+## VS Code Extensions
+- [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
 ## Libraries
+
+

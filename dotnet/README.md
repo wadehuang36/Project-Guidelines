@@ -69,8 +69,6 @@ dotnet test
 ```
 > NOTE: we treat warning as error
 
-## Version 
-
 ## Sample projects
 - [Swarm.TaskRunner](https://github.com/swarmnyc/Swarm.TaskRunner)
 
