@@ -29,15 +29,26 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-G
         - detail-xxx-component
     - services: the folder for service code, for example,
       - api-service
-    - tests: the test code folder
-       
+  - test: the test code folder
+
+## Typescript
+We build react native apps with [typescript](https://www.typescriptlang.org/index.html) to help projects more readable and debugging easier.
+
 ## Naming Styles
-- For File Names and Folder Names use kebab-case, for example, `the-file-name.tsx`
-- For Class Names, use PascalCase, for example, `class User { }`
+- For File Names and Folder Names use KebabCase, for example, `the-file-name.tsx`. the main reason for KebabCase is for the convention of module name. for example, `import { SomeThing } from "./some-thing"`
+- For Type Names like class, interface, use PascalCase, for example, `class User { }`
+- For variables, function, use CamelCase, for example, `var userName: string`
 
 ## Code Styles
+- No semicolon. Nowadays new languages such as Kotlin, Swift recommend no semicolon on the end of statements.
+- Double-Quote. We use double-quote instead of single-quote. 
+
+We use eslint and prettier to check the styles. IDE like vscode detect the errors if you installed the extensions. Or you can run `npm run lint` to check manually.
 
 ## Resource Styles
+
+## Pre commit
+We use the package [pre-commit](https://github.com/observing/pre-commit) 
 
 ## VS Code Extensions
 - [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
@@ -45,4 +56,5 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-G
 
 ## Libraries
 
-
+## Sample Projects
+- [Incident Go (Private)](https://gitlab.com/swarmnyc/incident-code-app)

@@ -56,4 +56,4 @@ dotnet format
 wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/dotnet/.gitignore
 git init
 git add .
-git commit -m "initialize the project"
+git commit -m "initialize project"
