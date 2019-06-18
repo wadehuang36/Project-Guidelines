@@ -11,7 +11,7 @@ npx react-native-cli init $ProjectName --template typescript
 cd $ProjectName
 
 # create folders and move default files
-mkdir app app/src app/src/scenes app/src/services app/src/utils app/res/ app/res/images app/res/fonts app/test
+mkdir app app/src app/core app/src/scenes app/src/services app/src/utils app/res/ app/res/images app/res/fonts app/test
 mkdir build .vscode
 mv __tests__/App-test.tsx app/test/app-test.tsx
 rm App.tsx

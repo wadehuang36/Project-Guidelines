@@ -21,12 +21,12 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-G
     - core: the folder for core code
     - scenes: the folder for different scenes, for example,
       - home:
-        - home-main-component
-        - home-search-component
-        - home-list-component
+        - home-main.tsx
+        - home-search.tsx
+        - home-list.tsx
       - detail:
-        - detail-main-component
-        - detail-xxx-component
+        - detail-main.tsx
+        - detail-xxx.tsx
     - services: the folder for service code, for example,
       - api-service
   - test: the test code folder
@@ -46,15 +46,49 @@ We build react native apps with [typescript](https://www.typescriptlang.org/inde
 We use eslint and prettier to check the styles. IDE like vscode detect the errors if you installed the extensions. Or you can run `npm run lint` to check manually.
 
 ## Resource Styles
+We would like centralize resources under `res` folder and put to objects for using easily. 
+
+For example,
+``` ts
+// ./app/res/string-res.ts
+export const StringRes = {
+  app: {
+    // if resources are only belong to one scene, we group in one object
+    welcome: "Welcome to React Native!",
+    instruction: "To get started, edit app/src/scenes/app.tsx",
+    instructions: Platform.select({
+      ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+      android:
+        'Double tap R on your keyboard to reload,\n' +
+        'Shake or press menu button for dev menu'
+    })
+  },
+  login: "Login",
+  logout: "Logout"
+}
+
+// ./app/res/image-res.ts
+export const ImageRes = {
+  // using ic, bg or others prefix for icon and background for better identifying
+  icAdd: require("./images/ic-add.png"),
+  icDelete: require("./images/ic-delete.png")
+}
+```
 
 ## Pre commit
-We use the package [pre-commit](https://github.com/observing/pre-commit) 
+We use the package [pre-commit](https://github.com/observing/pre-commit) to add a git pre-commit hook to check quality before commit. The hook executes there other commands
+- npm run lint: use eslint to check code pass the rules
+- npm run test: check project pass the tests
+- npm run build: check project can build
+
+If one of three commands fails, the commit fails. If you want to temporarily force commit. you can use commit with `--no-verify` option to skip hook. However, the build server will run these three commands again when a new pull request is created.
+
+## Sample Projects
+- [Incident Go (Private)](https://gitlab.com/swarmnyc/incident-code-app)
 
 ## VS Code Extensions
 - [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-## Libraries
-
-## Sample Projects
-- [Incident Go (Private)](https://gitlab.com/swarmnyc/incident-code-app)
+## Developing Tools
+- [React Native Debugger](https://github.com/jhen0409/react-native-debugger)
