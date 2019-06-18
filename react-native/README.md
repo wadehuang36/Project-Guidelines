@@ -75,6 +75,50 @@ export const ImageRes = {
 }
 ```
 
+## App Version
+Unlike other projects, Android and iOS app has two version options:
+- Version Code: a number that can only be increased. fails if uploading the same number to stores
+- Version Name: a string that can be every string, stores accepts the same string.
+
+We recommends use git commit count for version code, so the number can automatically increase for every commit. Also, manually change version name on package.json, so we just need to change one place.
+
+On Android, adding the script is very easy. Change app.grade like below
+``` gradle
+def APP_VERSION_CODE = Integer.parseInt(System.getenv("APP_VERSION_CODE") ?: 'git rev-list --count HEAD'.execute().text.trim())
+def APP_VERSION_NAME = System.getenv("APP_VERSION_NAME") ?: (new groovy.json.JsonSlurper().parseText(file("../../package.json").text)).version
+
+android {
+  defaultConfig {
+    versionCode APP_VERSION_CODE
+    versionName APP_VERSION_NAME
+  }
+```
+
+On iOS, adding the script needs more steps.
+1. create scripts/set_version.sh
+``` sh
+#!/bin/bash
+
+if [ -z "$APP_VERSION_CODE" ]; then
+  APP_VERSION_CODE=$(git rev-list HEAD --count)
+fi
+
+if [ -z "$APP_VERSION_NAME" ]; then
+  APP_VERSION_NAME=$(node -p -e "require('./package.json').version")
+fi
+
+target_plist="$TARGET_BUILD_DIR/$INFOPLIST_PATH"
+dsym_plist="$DWARF_DSYM_FOLDER_PATH/$DWARF_DSYM_FILE_NAME/Contents/Info.plist"
+
+for plist in "$target_plist" "$dsym_plist"; do
+  if [ -f "$plist" ]; then
+    /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $APP_VERSION_CODE" "$plist"
+    /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${APP_VERSION_CODE#*v}" "$plist"
+  fi
+done
+```
+2. change Build Phases to execute the script, you can follow this article [Automated Xcode version and build numbering via Git](https://www.mokacoding.com/blog/automatic-xcode-versioning-with-git/) to set up.
+
 ## Pre commit
 We use the package [pre-commit](https://github.com/observing/pre-commit) to add a git pre-commit hook to check quality before commit. The hook executes there other commands
 - npm run lint: use eslint to check code pass the rules
