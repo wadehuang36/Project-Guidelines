@@ -82,7 +82,8 @@ Unlike other projects, Android and iOS app has two version options:
 
 We recommends use git commit count for version code, so the number can automatically increase for every commit. Also, manually change version name on package.json, so we just need to change one place.
 
-On Android, adding the script is very easy. Change app.grade like below
+### On Android
+1. change **./android/app/build.grade** like below
 ``` gradle
 def APP_VERSION_CODE = Integer.parseInt(System.getenv("APP_VERSION_CODE") ?: 'git rev-list --count HEAD'.execute().text.trim())
 def APP_VERSION_NAME = System.getenv("APP_VERSION_NAME") ?: (new groovy.json.JsonSlurper().parseText(file("../../package.json").text)).version
@@ -94,8 +95,8 @@ android {
   }
 ```
 
-On iOS, adding the script needs more steps.
-1. create scripts/set_version.sh
+### On iOS
+1. create **./ios/scripts/set_version.sh**
 ``` sh
 #!/bin/bash
 
@@ -104,7 +105,7 @@ if [ -z "$APP_VERSION_CODE" ]; then
 fi
 
 if [ -z "$APP_VERSION_NAME" ]; then
-  APP_VERSION_NAME=$(node -p -e "require('./package.json').version")
+  APP_VERSION_NAME=$(node -p -e "require('../package.json').version")
 fi
 
 target_plist="$TARGET_BUILD_DIR/$INFOPLIST_PATH"
@@ -117,7 +118,102 @@ for plist in "$target_plist" "$dsym_plist"; do
   fi
 done
 ```
-2. change Build Phases to execute the script, you can follow this article [Automated Xcode version and build numbering via Git](https://www.mokacoding.com/blog/automatic-xcode-versioning-with-git/) to set up.
+2. add a new Build Phases to execute the script.
+
+- Select the project on file tree > select the target > select Build Phases
+- add **New Run Script Phase**
+- add a command to execute `$SRCROOT/scripts/set_version.sh` file
+
+![set-version](./images/ios-set-version.png)
+
+## App ID and Stages
+We recommend build apps with three stages:
+1. dev: for developers, connect to dev environmental resources
+2. qa: for tester, connect to qa environmental resources
+3. prod: for everyone, connect to prod environmental resources
+
+Each staged apps has different app ID and name. The reasons for that are the three apps can be installed in the same devices, so developers or testers can launch each apps easily. Also, each apps access resources such as APIs or databases differently. Since each stages are isolated, any actions on QA app won't affect Prod app.
+
+### On Android
+On android, we use build types as states.
+
+1. Change **./android/app/build.grade** like below
+``` gradle
+android {
+  buildTypes {
+    debug { // debug as dev stage
+      applicationIdSuffix ".dev"
+      resValue "string", "app_name", "@string/app_name_debug"
+    }
+    qa {
+      applicationIdSuffix ".qa"
+      resValue "string", "app_name", "@string/app_name_qa"
+    }
+    release { // release as prod stage
+      resValue "string", "app_name", "@string/app_name_release"
+    }
+  }
+}
+```
+2. Config three string resources on strings.xml and use it on AndroidManifest.xml, so the name can be different for each stages.
+
+3. You can change build type to run on Android Studio or run gradle script like `./gradlew app:assembleQa` or `./gradlew app:assembleRelease`
+
+4. fix qa build type problems for React Native libraries.
+   
+   Because React Native libraries has to build along with the app. Unlike other libraries with just reference the jar or aar. So these React Native libraries need to have qa build type as well. To fix that adding this script on **./android/build.gradle**
+
+``` gradle
+subprojects { project ->
+  project.afterEvaluate {
+    def android = project.extensions.findByName("android")
+    if (android != null) {
+      // to add qa build type for other projects to prevent build failure
+      if (android.buildTypes.findByName("qa") == null) {
+        android.buildTypes.create("qa") {
+          initWith(android.buildTypes.release)
+        }
+      }
+    }
+  }
+}
+```
+
+### On iOS
+On iOS, we use configurations as stages.
+
+1. Add the QA configuration. 
+- Select the project on file tree > select the project. 
+- Then hit the + button under Configurations > select **Duplicate "Release" Configuration**
+- change the name to **QA**
+
+![add-configuration](./images/ios-add-configuration.png)
+
+2. Change the Product Bundle Identifier and Name. 
+- select the project on file tree > select the target > Build Settings. 
+- change the Product Bundle Identifier and Product Name for each configurations
+
+![add-configuration](./images/ios-change-id-name.png)
+
+4. fix QA configuration problems for React Native libraries.
+   
+   Because React Native libraries has to build along with the app, so these React Native libraries need to have qa configuration as well.
+
+   - run `npm install react-native-schemes-manager`
+   - add this setting on **./package.json**
+  ``` json
+  {
+    "xcodeSchemes": {
+      "Release": [
+        "QA"
+      ],
+      "projectDirectory": "ios"
+    }
+  }
+  ```
+  - run `npx react-native-schemes-manager all` to this library will add configurations to other React Native libraries.
+
+5. you can change Build Configuration on XCode by go to Menu > Product > Scheme > Edit Scheme or run `xcodebuild` with `-configuration [name]`.
 
 ## Pre commit
 We use the package [pre-commit](https://github.com/observing/pre-commit) to add a git pre-commit hook to check quality before commit. The hook executes there other commands
