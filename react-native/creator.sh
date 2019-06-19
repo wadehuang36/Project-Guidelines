@@ -27,7 +27,7 @@ npm install -D pre-commit
 
 # add scripts
 NPM_SCRIPTS='"build": "react-native bundle --entry-file ./index.js --bundle-output build/index.bundle",\n'
-NPM_SCRIPTS=$NPM_SCRIPTS'"lint": "eslint app/\x2A*/*.ts*",\n'
+NPM_SCRIPTS=$NPM_SCRIPTS'"lint": "eslint --ext ts --ext tsx --quiet app",\n'
 NPM_SCRIPTS=$(echo $NPM_SCRIPTS | sed 's/\//\\\//g')
 NPM_SCRIPTS=$(echo $NPM_SCRIPTS | sed 's/\"/\\\"/g')
 sed -i "/\"test\": \"jest\"/ s/.*/${NPM_SCRIPTS}&/" package.json
@@ -37,16 +37,17 @@ PRECOMMIT='"pre-commit": [\n"lint",\n"test",\n"build"],\n'
 PRECOMMIT=$(echo $PRECOMMIT | sed 's/\"/\\\"/g')
 sed -i "/\"dependencies\": {/ s/.*/${PRECOMMIT}\n&/" package.json
 
-# format package.json
-npx prettier package.json --write
-npx eslint **/*.tsx --fix
-
 # download files
 wget -q -P app/src/scenes https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/app.tsx
 wget -q -P app/res https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/string-res.ts
 wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/.editorconfig
 wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/.eslintrc.js
 wget -q -P .vscode https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/react-native/settings.json
+
+# format files
+npx prettier package.json --write
+npx eslint index.js --fix
+npm run lint -- --fix
 
 #setup git
 git init
