@@ -23,7 +23,6 @@ sed -i "s/'\..\/App'/'..\/src\/scenes\/app'/" app/test/app.test.tsx
 
 # install packages
 npm install -D eslint prettier eslint-plugin-react eslint-config-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
-npm install -D pre-commit
 
 # add scripts
 NPM_SCRIPTS='"build": "react-native bundle --entry-file ./index.js --bundle-output build/index.bundle",\n'
@@ -53,3 +52,5 @@ npm run lint -- --fix
 git init
 git add .
 git commit -m "initialize project"
+
+npm install -D pre-commit

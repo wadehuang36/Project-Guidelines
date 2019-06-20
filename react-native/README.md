@@ -28,7 +28,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-G
         - detail-main.tsx
         - detail-xxx.tsx
     - services: the folder for service code, for example,
-      - api-service
+      - api-service.ts
   - test: the test code folder
 
 ## Typescript
@@ -216,12 +216,12 @@ On iOS, we use configurations as stages.
 5. you can change Build Configuration on XCode by go to Menu > Product > Scheme > Edit Scheme or run `xcodebuild` with `-configuration [name]`.
 
 ## Pre commit
-We use the package [pre-commit](https://github.com/observing/pre-commit) to add a git pre-commit hook to check quality before commit. The hook executes there other commands
+We use the package [pre-commit](https://github.com/observing/pre-commit) to add a git pre-commit hook to check the code quality before commit. The hook executes these commands
 - npm run lint: use eslint to check code pass the rules
 - npm run test: check project pass the tests
 - npm run build: check project can build
 
-If one of three commands fails, the commit fails. If you want to temporarily force commit. you can use commit with `--no-verify` option to skip hook. However, the build server will run these three commands again when a new pull request is created.
+If one of three commands fails, the commit fails. If you want to temporarily force commit. you can use `git commit` with `--no-verify` or `-n` option to the skip hook. However, the build server will run these three commands again when a new pull request is created.
 
 ## Sample Projects
 - [Incident Go (Private)](https://gitlab.com/swarmnyc/incident-code-app)
