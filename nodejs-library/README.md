@@ -7,17 +7,8 @@
 we create a creator.sh to help creating and setting a new nodejs project. 
 Use this command to initialize a new project.
 ``` bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-web-api/creator.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-library/creator.sh)"
 ```
-
-## Fulton
-[Fulton](https://github.com/swarmnyc/fulton) is a web-api library that we created to help our company to build web api. The 
-- [express](https://expressjs.com/) 
-- [inversify](http://inversify.io/)
-- [passport](http://www.passportjs.org/)
-- [typeorm](http://typeorm.io)
-- [swagger](http://swagger.io)
-- [winston](https://github.com/winstonjs/winston)
 
 ## Typescript
 We build react native apps with [typescript](https://www.typescriptlang.org/index.html) to help projects more readable and debugging easier.
@@ -42,7 +33,7 @@ We use the package [pre-commit](https://github.com/observing/pre-commit) to add 
 If one of three commands fails, the commit fails. If you want to temporarily force commit. you can use commit with `--no-verify` option to skip hook. However, the build server will run these three commands again when a new pull request is created.
 
 ## Sample Projects
-- [Incident API (Private)](https://gitlab.com/swarmnyc/incident-code-api)
+- [Incident Core (Private)](https://gitlab.com/swarmnyc/incident-code-core)
 
 ## VS Code Extensions
 - [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)

@@ -22,6 +22,9 @@ we use [Semantic Versioning 2.0.0](https://semver.org/) for the versioning of al
 2. MINOR version when you add functionality in a backwards-compatible manner.
 3. PATCH version when you make backwards-compatible bug fixes.
 
+## Recommended IDE
+- [Visual Studio Code](https://code.visualstudio.com/)
+
 ## Recommended VS Code Extensions
 - [Git Lens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 - [Version Lens](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens)

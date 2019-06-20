@@ -10,7 +10,7 @@ mkdir $ProjectName
 
 cd $ProjectName
 
-mkdir .vscode src
+mkdir src
 
 echo 'console.log("hello world!")' > src/index.ts
 
@@ -26,9 +26,6 @@ npm install -D typescript eslint prettier eslint-config-prettier eslint-plugin-p
 
 # update project name
 sed -i "s/\"name\": \".*\"/\"name\": \"$ProjectName\"/" package.json
-
-# format files
-npx prettier package.json --write
 
 #setup git
 git init
