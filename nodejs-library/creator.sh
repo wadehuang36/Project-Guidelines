@@ -18,7 +18,7 @@ echo 'console.log("hello world!")' > src/index.ts
 wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-library/.editorconfig
 wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-library/.gitignore
 wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-library/.eslintrc.js
-wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-library/.js
+wget -q https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-library/package.json
 wget -q -P .vscode https://raw.githubusercontent.com/swarmnyc/SWARM-Project-Guidelines/master/nodejs-library/settings.json
 
 # install packages
