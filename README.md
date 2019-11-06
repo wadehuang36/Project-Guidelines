@@ -1,4 +1,4 @@
-# SWARM Project Guidelines
+# Project Guidelines
 The reasons we created this project guidelines was to smooth our development. The good guidelines can do
 - Standardizing, the same standards use on projects helps our team members can understand projects quick and reduces learning curse to join projects. 
 - Automating, we created project-generating scripts to generate projects based on our standards.
