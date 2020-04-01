@@ -114,7 +114,7 @@ dsym_plist="$DWARF_DSYM_FOLDER_PATH/$DWARF_DSYM_FILE_NAME/Contents/Info.plist"
 for plist in "$target_plist" "$dsym_plist"; do
   if [ -f "$plist" ]; then
     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $APP_VERSION_CODE" "$plist"
-    /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${APP_VERSION_CODE#*v}" "$plist"
+    /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $APP_VERSION_NAME" "$plist"
   fi
 done
 ```
